@@ -21,7 +21,7 @@ clickSound.preload = "auto";
 // Game constants (easy to tweak)
 const GRAVITY = isMobile ? 0.35 : 0.25;
 const JUMP = isMobile ? -9 : -7;
-const PIPE_SPEED = isMobile ? 18: 5;
+const PIPE_SPEED = isMobile ? 5: 6;
 const PIPE_WIDTH = 50;
 const GAP = isMobile ? 450 : 380;
 const SPAWN_RATE = isMobile ? 110 : 75;
@@ -76,7 +76,7 @@ function reset() {
 
 // Create pipes
 function spawnPipe() {
-  const shift = 80;
+  const shift = 60;
   let gapCenter =
     lastGapY + (Math.random() * shift * 2 - shift);
 
