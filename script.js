@@ -21,7 +21,7 @@ clickSound.preload = "auto";
 // Game constants (easy to tweak)
 const GRAVITY = isMobile ? 0.35 : 0.25;
 const JUMP = isMobile ? -9 : -7;
-const PIPE_SPEED = isMobile ? 2.5 : 4;
+const PIPE_SPEED = isMobile ? 3.5 : 4;
 const PIPE_WIDTH = 50;
 const GAP = isMobile ? 450 : 380;
 const SPAWN_RATE = isMobile ? 110 : 75;
@@ -80,7 +80,7 @@ function spawnPipe() {
   let gapCenter =
     lastGapY + (Math.random() * shift * 2 - shift);
 
-  const min = GAP / 2 + 50;
+  const min = GAP / 2 + 120;
   const max = canvas.height - GAP / 2 - 50;
 
   gapCenter = Math.max(min, Math.min(max, gapCenter));
