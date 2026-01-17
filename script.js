@@ -49,8 +49,11 @@ function flap() {
   clickSound.play();
 }
 
-document.addEventListener("touchstart", flap);
-document.addEventListener("mousedown", flap);
+document.addEventListener("touchstart", e => {
+  e.preventDefault();
+  flap();
+}, { passive: false });
+
 
 function reset() {
   bird.y = canvas.height / 2;
