@@ -25,7 +25,7 @@ clickSound.preload = "auto";
 // ================= GAME CONSTANTS =================
 const GRAVITY = isMobile ? 0.35 : 0.25;
 const JUMP = isMobile ? -9 : -7;
-const PIPE_SPEED = isMobile ? 5 : 6;
+const PIPE_SPEED = isMobile ? 6 : 6;
 const PIPE_WIDTH = 50;
 const GAP = isMobile ? 420 : 340;
 const SPAWN_RATE = isMobile ? 55 : 45;
