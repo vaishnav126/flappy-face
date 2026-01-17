@@ -1,5 +1,7 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
+const isMobile = window.innerWidth < 768;
+
 
 function resize() {
   canvas.width = window.innerWidth;
@@ -22,8 +24,9 @@ let score = 0;
 let lastGapY = canvas.height / 2;
 
 
-const gravity = 0.25;
-const jumpForce = -7;
+const gravity = isMobile ? 0.35 : 0.25;
+const jumpForce = isMobile ? -9 : -7;
+
 
 const bird = {
   x: canvas.width * 0.25,
