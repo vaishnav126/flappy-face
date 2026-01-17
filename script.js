@@ -24,7 +24,8 @@ const JUMP = isMobile ? -9 : -7;
 const PIPE_SPEED = isMobile ? 4: 6;
 const PIPE_WIDTH = 50;
 const GAP = isMobile ? 450 : 380;
-const SPAWN_RATE = isMobile ? 110 : 75;
+const SPAWN_RATE = isMobile ? 70 : 55;
+
 
 // Game state
 let frame = 0;
@@ -118,10 +119,10 @@ function update() {
       if (hitPipe) playing = false;
 
       // Score
-      if (!p.passed && p.x + PIPE_WIDTH < bird.x) {
-        p.passed = true;
-        score++;
-      }
+      if (!p.passed && p.x + PIPE_WIDTH < bird.x()) {
+  p.passed = true;
+  score++;
+}
 
       if (p.x + PIPE_WIDTH < 0) pipes.splice(i, 1);
     }
