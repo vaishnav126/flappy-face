@@ -1,4 +1,4 @@
-// ================= CANVAS SETUP =================
+// ================= CANVAS =================
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
@@ -22,19 +22,22 @@ face.src = "face.png";
 const clickSound = new Audio("click.mp3");
 clickSound.preload = "auto";
 
-// ================= GAME CONSTANTS =================
+// ================= CONSTANTS =================
 const GRAVITY = isMobile ? 0.35 : 0.25;
 const JUMP = isMobile ? -9 : -7;
-const PIPE_SPEED = isMobile ? 6 : 6;
+const PIPE_SPEED = isMobile ? 5 : 6;
 const PIPE_WIDTH = 50;
 const GAP = isMobile ? 420 : 340;
 const SPAWN_RATE = isMobile ? 55 : 45;
 
-// ================= GAME STATE =================
+// ================= STATE =================
 let frame = 0;
 let score = 0;
 let playing = true;
 let lastGapY = window.innerHeight / 2;
+
+// ================= HIGH SCORE =================
+let highScore = Number(localStorage.getItem("flappyHighScore")) || 0;
 
 // ================= PLAYER =================
 const bird = {
@@ -54,7 +57,6 @@ function flap() {
     return;
   }
   bird.velocity = JUMP;
-
   clickSound.currentTime = 0;
   clickSound.play().catch(() => {});
 }
@@ -87,7 +89,7 @@ function spawnPipe() {
   let gapCenter =
     lastGapY + (Math.random() * shift * 2 - shift);
 
-  const min = GAP / 2 + 140; // pushes top pipe DOWN
+  const min = GAP / 2 + 140; // top pipe lower
   const max = window.innerHeight - GAP / 2 - 60;
 
   gapCenter = Math.max(min, Math.min(max, gapCenter));
@@ -124,7 +126,7 @@ function update() {
         (bird.y - bird.size / 2 < p.top ||
          bird.y + bird.size / 2 > p.top + GAP);
 
-      if (hit) playing = false;
+      if (hit) endGame();
 
       // Score
       if (!p.passed && p.x + PIPE_WIDTH < bx) {
@@ -136,7 +138,7 @@ function update() {
     }
 
     if (bird.y < 0 || bird.y > window.innerHeight) {
-      playing = false;
+      endGame();
     }
   }
 
@@ -167,9 +169,13 @@ function update() {
 
   // ================= UI =================
   ctx.fillStyle = "#000";
-  ctx.font = "28px Arial";
   ctx.textAlign = "center";
+
+  ctx.font = "28px Arial";
   ctx.fillText(score, window.innerWidth / 2, 50);
+
+  ctx.font = "18px Arial";
+  ctx.fillText(`High: ${highScore}`, window.innerWidth / 2, 80);
 
   if (!playing) {
     ctx.font = "36px Arial";
@@ -187,6 +193,15 @@ function update() {
   }
 
   requestAnimationFrame(update);
+}
+
+// ================= GAME OVER =================
+function endGame() {
+  playing = false;
+  if (score > highScore) {
+    highScore = score;
+    localStorage.setItem("flappyHighScore", highScore);
+  }
 }
 
 update();
